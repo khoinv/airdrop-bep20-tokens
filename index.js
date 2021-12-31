@@ -13,8 +13,7 @@ const BEP_20_ABI = JSON.parse(
 );
 const DISPERSE_APP_ADDRESS = process.env.DISPERSE_APP_ADDRESS;
 const TOKEN_ADDRESS = process.env.TOKEN_ADDRESS;
-const AMOUNT_SUFFIX = process.env.AMOUNT_SUFFIX;
-const TOTAL_AMOUNT = process.env.TOTAL_AMOUNT + AMOUNT_SUFFIX;
+const TOTAL_AMOUNT = Web3.utils.toWei(process.env.TOTAL_AMOUNT);
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 const web3 = new Web3(process.env.WEB3_PROVIDER_ENDPOINT);
@@ -30,7 +29,7 @@ const main = async () => {
 
   data.forEach((row) => {
     addressList.push(row['Address']);
-    amountList.push(row['Amount'] + AMOUNT_SUFFIX);
+    amountList.push(Web3.utils.toWei(row['Amount']));
   });
 
   const gasPrice = await web3.eth.getGasPrice();
