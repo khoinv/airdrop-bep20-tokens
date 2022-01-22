@@ -17,7 +17,7 @@ const TOTAL_AMOUNT = Web3.utils.toWei(process.env.TOTAL_AMOUNT);
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 const web3 = new Web3(process.env.WEB3_PROVIDER_ENDPOINT);
-const testFileName = 'test.csv';
+const testFileName = 'adene_airdrop_mma.csv';
 const testFilePath = path.resolve(__dirname, 'csv', testFileName);
 const isApprovalNeeded = true;
 
@@ -28,8 +28,8 @@ const main = async () => {
   const data = await csv().fromFile(testFilePath);
 
   data.forEach((row) => {
-    addressList.push(row['Address']);
-    amountList.push(Web3.utils.toWei(row['Amount']));
+    addressList.push(row['Address'].trim());
+    amountList.push(Web3.utils.toWei('' + parseFloat(row['Amount'].trim())));
   });
 
   const gasPrice = await web3.eth.getGasPrice();
